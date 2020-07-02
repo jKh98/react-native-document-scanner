@@ -327,28 +327,22 @@ public class ImageProcessor extends Handler {
     }
 
     private boolean insideArea(Point[] rp, Size size) {
-
         int width = Double.valueOf(size.width).intValue();
         int height = Double.valueOf(size.height).intValue();
+        int baseMeasure = height/4;
 
-        int minimumSize = width / 10;
-        int minimumWidth = (int) Math.round(width * 0.9);
+        int bottomPos = height-baseMeasure;
+        int topPos = baseMeasure;
+        int leftPos = width/2-baseMeasure;
+        int rightPos = width/2+baseMeasure;
 
-        boolean isANormalShape = rp[0].x != rp[1].x && rp[1].y != rp[0].y && rp[2].y != rp[3].y && rp[3].x != rp[2].x;
-        boolean isBigEnough = ((rp[1].x - rp[0].x >= minimumWidth) && (rp[2].x - rp[3].x >= minimumWidth)
-                && (rp[3].y - rp[0].y >= minimumSize) && (rp[2].y - rp[1].y >= minimumSize));
+        return (
+                rp[0].x <= leftPos && rp[0].y <= topPos
+                        && rp[1].x >= rightPos && rp[1].y <= topPos
+                        && rp[2].x >= rightPos && rp[2].y >= bottomPos
+                        && rp[3].x <= leftPos && rp[3].y >= bottomPos
 
-        double leftOffset = rp[0].x - rp[3].x;
-        double rightOffset = rp[1].x - rp[2].x;
-        double bottomOffset = rp[0].y - rp[1].y;
-        double topOffset = rp[2].y - rp[3].y;
-
-        boolean isAnActualRectangle = ((leftOffset <= minimumSize && leftOffset >= -minimumSize)
-                && (rightOffset <= minimumSize && rightOffset >= -minimumSize)
-                && (bottomOffset <= minimumSize && bottomOffset >= -minimumSize)
-                && (topOffset <= minimumSize && topOffset >= -minimumSize));
-
-        return isANormalShape && isAnActualRectangle && isBigEnough;
+        );
     }
 
     private void enhanceDocument(Mat src) {
