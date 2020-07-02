@@ -332,10 +332,12 @@ public class ImageProcessor extends Handler {
         int height = Double.valueOf(size.height).intValue();
 
         int minimumSize = width / 10;
+        int minimumWidth = Math.abs(width/1 -5);
+        int minimumHeight = Math.abs(height/1 -5);
 
         boolean isANormalShape = rp[0].x != rp[1].x && rp[1].y != rp[0].y && rp[2].y != rp[3].y && rp[3].x != rp[2].x;
-        boolean isBigEnough = ((rp[1].x - rp[0].x >= minimumSize) && (rp[2].x - rp[3].x >= minimumSize)
-                && (rp[3].y - rp[0].y >= minimumSize) && (rp[2].y - rp[1].y >= minimumSize));
+        boolean isBigEnough = ((rp[1].x - rp[0].x >= minimumWidth) && (rp[2].x - rp[3].x >= minimumWidth)
+                && (rp[3].y - rp[0].y >= minimumHeight) && (rp[2].y - rp[1].y >= minimumHeight));
 
         double leftOffset = rp[0].x - rp[3].x;
         double rightOffset = rp[1].x - rp[2].x;
