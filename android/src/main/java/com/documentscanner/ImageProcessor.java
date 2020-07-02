@@ -332,7 +332,7 @@ public class ImageProcessor extends Handler {
         int height = Double.valueOf(size.height).intValue();
 
         int minimumSize = width / 10;
-        int minimumWidth = Math.round(width * 0.9);
+        int minimumWidth = (int) Math.round(width * 0.9);
 
         boolean isANormalShape = rp[0].x != rp[1].x && rp[1].y != rp[0].y && rp[2].y != rp[3].y && rp[3].x != rp[2].x;
         boolean isBigEnough = ((rp[1].x - rp[0].x >= minimumWidth) && (rp[2].x - rp[3].x >= minimumWidth)
